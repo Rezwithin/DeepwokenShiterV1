@@ -1,0 +1,192 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Rez Hub", "Ocean")
+local Tab = Window:NewTab("Status:Working")
+local Tab = Window:NewTab("Main")
+local Section = Tab:NewSection("Scripts")
+Section:NewLabel("deepwoken")
+Section:NewSlider("Custom Walkspeed", "customize ur walkspeed yay", 100, 0, function(s) -- 100 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+Section:NewButton("Anti-Mod", "Kicks when a mod joins", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/slimethefemboy/scripts/main/Deepwoken/modslist'))()
+local plrs = game:GetService('Players')
+local lp = plrs.LocalPlayer
+
+-- kick function
+local kick = function(reason)
+    return lp:kick(reason)
+end
+
+-- check if mod is currently in game
+for i,v in pairs(plrs:GetChildren()) do 
+    if table.find(mods,v.UserId) then 
+        kick('potential mod found')
+    end
+end
+
+-- kick if mod joins game
+plrs.PlayerAdded:Connect(function(r)
+    if table.find(mods,r.UserId) then 
+        kick('potential mod joined')
+    end
+end)
+local sector = tab:CreateSector("Farms (More Soon)")
+local toggle = sector:AddToggle("intelligence Farm", true, function() end)
+local function get_math_answer(text)
+    -- parse the first number, operation and second number out of the text
+    -- this could be more specific [What is (%-?%d*%.?%d+) (%a+) ?%a* (%-?%d*%.?%d+)] but since the format is always the same i simplified it
+    
+    local first_number, operation, second_number = text:match("What is(%L+)(%l+) %l*(.+)");
+
+    -- if for some reason it failed to parse return false
+
+    if not operation then 
+        return false;
+    end;
+
+    -- return the solved equation based on the data 
+    
+    if operation == "plus" then 
+        return first_number + second_number;
+    elseif operation == "minus" then 
+        return first_number - second_number;
+    elseif operation == "times" then 
+        return first_number * second_number;
+    elseif operation == "divided" then 
+        return first_number / second_number;
+    end;
+end;
+
+-- when a gui is added to playergui check if it is a prompt 
+
+game:GetService("Players").LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+    if child.Name == "ChoicePrompt" then 
+        -- get the answer from the gui text 
+        
+        local choice_frame = child:WaitForChild("ChoiceFrame");
+        local answer = get_math_answer(choice_frame:WaitForChild("DescSheet"):WaitForChild("Desc").Text);
+
+        -- if the answer has successfully been fetched get the correct answer button 
+        
+        if answer then 
+            local answer_button = choice_frame:WaitForChild("Options"):FindFirstChild(tostring(answer));
+            
+            if answer_button then
+                -- press the correct answer button after a randomized delay 
+                
+                wait(math.random(3, 5));
+                
+                for index, connection in next, getconnections(answer_button.MouseButton1Click) do 
+                    connection:Fire();
+                end;
+            end;
+        end;
+    end;
+end);
+
+end)
+
+Section:NewButton("Chat Logs", "Look at chat lolol", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/Y8yW6Nas"))()
+end)
+
+Section:NewButton("Server Hop", "Jump servers ez", function()
+    -- execute when u want to serverhop
+
+ local Players = game:GetService("Players")
+ local TeleportService = game:GetService("TeleportService")
+  
+ local placeId = 4111023553 -- 
+ 
+ TeleportService:Teleport(placeId)
+
+
+
+-- place me in autoexe
+
+repeat wait() until game:IsLoaded()
+
+if game.PlaceId ~= 4111023553 then return end
+
+local args = {
+    [1] = "A",
+    [2] = {
+        ["PrivateTest"] = false
+    }
+}
+
+game:GetService("ReplicatedStorage").Requests.StartMenu.Start:FireServer(unpack(args))
+end)
+
+Section:NewButton("Medium Walkspeed", "TURN ON ANTI MOD AND DONT USE NEAR PEOPLE", function()
+    getgenv().WalkSpeedValue = 50; --set your desired walkspeed here
+    local Player = game:service'Players'.LocalPlayer;
+    Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+    Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+    end)
+    Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+    end)
+
+Section:NewButton("Fast Walkspeed", "use at your own risk", function()
+    getgenv().WalkSpeedValue = 100; --set your desired walkspeed here
+    local Player = game:service'Players'.LocalPlayer;
+    Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+    Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+    end)
+    Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+    end)
+    
+    local Tab = Window:NewTab("esp")
+    local Section = Tab:NewSection("all esp")
+Section:NewButton("esp", "esp for you and you and you sike", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua"))()
+end)
+
+Section:NewButton("ingredient esp", "get the food", function()
+    for i,v in pairs(game:GetService("Workspace").Ingredients:GetChildren()) do 
+    if v:IsA("MeshPart") then 
+  
+    local BillboardGui = Instance.new("BillboardGui",v)
+
+
+        local Frame = Instance.new("Frame")
+        local TextLabel = Instance.new("TextLabel")
+
+        --Properties:
+
+
+        BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        BillboardGui.Active = true
+        BillboardGui.LightInfluence = 1.000
+        BillboardGui.Size = UDim2.new(0, 200, 0, 50)
+        BillboardGui.StudsOffset = Vector3.new(0, 3, 0)
+        BillboardGui.AlwaysOnTop = true
+        Frame.Parent = BillboardGui
+        Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Frame.BackgroundTransparency = 10.000
+        Frame.Size = UDim2.new(0, 200, 0, 200)
+
+        TextLabel.Parent = Frame
+        TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.BackgroundTransparency = 1.000
+        TextLabel.Size = UDim2.new(0,1,0,1)
+        TextLabel.Font = Enum.Font.SourceSans
+        TextLabel.Text = v.Name
+        TextLabel.TextColor3 = Color3.fromRGB(249, 214, 46)
+        TextLabel.TextSize = 20.000
+        TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 42, 0)
+
+    local function delete() 
+        
+        v.BillboardGui:Destroy()
+        
+        end 
+        
+        end end 
+end)
+
+local Tab = Window:NewTab("Credits")
+local Section = Tab:NewSection("Made by Rez#4296")
+
+local ScreenGui = Instance.new('ScreenGui');
+(protectgui or syn.protect_gui or (function() end))(ScreenGui);
